@@ -31,14 +31,12 @@ function(preamble)
     set(CMAKE_CXX_VISIBILITY_PRESET hidden PARENT_SCOPE)
     set(CMAKE_VISIBILITY_INLINES_HIDDEN 1 PARENT_SCOPE)
 
-    if (${PROJECT_NAME}_INSTALL_LIB)
-        include(GNUInstallDirs)
-        if (NOT CMAKE_GENERATOR STREQUAL "Xcode")
-            file(RELATIVE_PATH relDir
-                    ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}
-                    ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
-            set(CMAKE_INSTALL_RPATH $ORIGIN $ORIGIN/${relDir} PARENT_SCOPE)
-        endif ()
+    include(GNUInstallDirs)
+    if (NOT CMAKE_GENERATOR STREQUAL "Xcode")
+        file(RELATIVE_PATH relDir
+                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}
+                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+        set(CMAKE_INSTALL_RPATH $ORIGIN $ORIGIN/${relDir} PARENT_SCOPE)
     endif ()
 endfunction()
 
