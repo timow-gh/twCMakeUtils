@@ -79,4 +79,6 @@ function(setupExportSetInstall project_name export_set)
             "${CMAKE_BINARY_DIR}/${project_name}Config.cmake"
             "${CMAKE_BINARY_DIR}/${project_name}ConfigVersion.cmake"
             DESTINATION ${${project_name}_INSTALL_CMAKEDIR})
+
+    export(EXPORT ${export_set} NAMESPACE ${project_name}:: FILE ${CMAKE_BINARY_DIR}/${project_name}Targets.cmake)
 endfunction()
