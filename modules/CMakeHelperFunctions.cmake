@@ -40,7 +40,7 @@ function(preamble)
     endif ()
 endfunction()
 
-function(setupExportSetInstall project_name export_set)
+function(setupExportSetInstall project_name export_set write_export_set_to_binary_dir)
     include(CMakePackageConfigHelpers)
 
     if (NOT EXISTS "${PROJECT_SOURCE_DIR}/cmake/Config.cmake.in")
@@ -78,5 +78,7 @@ function(setupExportSetInstall project_name export_set)
             "${CMAKE_BINARY_DIR}/${project_name}ConfigVersion.cmake"
             DESTINATION ${${project_name}_INSTALL_CMAKEDIR})
 
-    export(EXPORT ${export_set} NAMESPACE ${project_name}:: FILE ${CMAKE_BINARY_DIR}/${project_name}Targets.cmake)
+    if (write_export_set_to_binary_dir)
+        export(EXPORT ${export_set} NAMESPACE ${project_name}:: FILE ${CMAKE_BINARY_DIR}/${project_name}Targets.cmake)
+    endif ()
 endfunction()
