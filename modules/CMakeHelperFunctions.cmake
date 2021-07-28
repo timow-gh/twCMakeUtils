@@ -5,9 +5,10 @@ function(checkIsVarBuildTypeDefined)
     endif ()
 endfunction()
 
-macro(setMSVCOutputDirectories)
+function(preamble)
+    checkIsVarBuildTypeDefined()
+    include(GNUInstallDirs)
     if (MSVC)
-        include(GNUInstallDirs)
         if (NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR} PARENT_SCOPE)
         endif ()
@@ -20,18 +21,12 @@ macro(setMSVCOutputDirectories)
             set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR} PARENT_SCOPE)
         endif ()
     endif ()
-endmacro()
-
-function(preamble)
-    checkIsVarBuildTypeDefined()
-    setMSVCOutputDirectories()
 
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
     set(CMAKE_CXX_VISIBILITY_PRESET hidden PARENT_SCOPE)
     set(CMAKE_VISIBILITY_INLINES_HIDDEN 1 PARENT_SCOPE)
 
-    include(GNUInstallDirs)
     if (NOT CMAKE_GENERATOR STREQUAL "Xcode")
         file(RELATIVE_PATH relDir
                 ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}
