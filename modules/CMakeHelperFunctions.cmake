@@ -9,6 +9,8 @@ function(preamble)
     checkIsVarBuildTypeDefined()
     include(GNUInstallDirs)
     if (MSVC)
+        set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
         if (NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
             set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR} PARENT_SCOPE)
         endif ()
