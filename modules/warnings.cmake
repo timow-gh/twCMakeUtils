@@ -76,6 +76,9 @@ function(add_warnings_and_compile_options target warnings_are_errors)
         endif ()
         
         target_compile_options(${target} PRIVATE ${${target}_INHERITANCE_PROPERTY}
+                -Wno-unknown-pragmas # Ignore unknown pragmas warnings
+                -Wno-pragmas # Ignore pragmas warnings
+                # GCC does not honor this if it is set in using #pragma GCC diagnostic ignored "-Wunknown-pragmas"
                 -Wall
                 -Wextra # reasonable and standard
                 -Wextra-semi # Warn about semicolon after in-class function definition.
